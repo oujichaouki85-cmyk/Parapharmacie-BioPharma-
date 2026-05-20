@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Bio Pharma</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+    <h1>Bio Pharma – Chez Azizi</h1>
+    <p>Votre santé, notre priorité</p>
+</header>
+
+<section class="produits">
+    <h2>Nos Produits</h2>
+
+    <div class="slider" id="slider">
+
+        <!-- Flèche gauche -->
+        <button class="prev">❮</button>
+
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack">
+
+                <!-- PRODUITS -->
+ <div class="produit">
+    <a href="famille.html?type=creme">
+        <img src="images/vichy.jpg" alt="Crème">
+        <p>Crèmes hydratantes</p>
+    </a>
+</div>
+
+<div class="produit">
+    <a href="famille.html?type=serum">
+        <img src="images/hydratante.jpg" alt="Sérum">
+        <p>Sérums visage</p>
+    </a>
+</div>
+
+<div class="produit">
+    <a href="famille.html?type=lotion">
+        <img src="images/lotion.jpg" alt="Lotion">
+        <p>Lotions</p>
+    </a>
+</div>
+
+<div class="produit">
+    <a href="famille.html?type=ortho">
+        <img src="images/ortho.jpg" alt="Ortho">
+        <p>Orthopédie</p>
+    </a>
+</div>
+
+                <!-- DUPLICATION POUR BOUCLE -->
+<div class="produit">
+    <a href="famille.html?type=creme">
+        <img src="images/vichy.jpg" alt="Crème">
+        <p>Crèmes hydratantes</p>
+    </a>
+</div>
+
+<div class="produit">
+    <a href="famille.html?type=serum">
+        <img src="images/hydratante.jpg" alt="Sérum">
+        <p>Sérums visage</p>
+    </a>
+</div>
+
+<div class="produit">
+    <a href="famille.html?type=lotion">
+        <img src="images/lotion.jpg" alt="Lotion">
+        <p>Lotions</p>
+    </a>
+</div>
+
+<div class="produit">
+    <a href="famille.html?type=ortho">
+        <img src="images/ortho.jpg" alt="Ortho">
+        <p>Orthopédie</p>
+    </a>
+</div>
+            </div>
+        </div>
+
+        <!-- Flèche droite -->
+        <button class="next">❯</button>
+
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Bio Pharma</p>
+</footer>
+
+<script>
+
+const track = document.getElementById("sliderTrack");
+const next = document.querySelector(".next");
+const prev = document.querySelector(".prev");
+
+let position = 0;
+let speed = 1;
+let auto;
+
+/* largeur produit */
+function getWidth() {
+    const item = document.querySelector(".produit");
+    return item.offsetWidth + 20;
+}
+
+/* AUTO CONTINU */
+function startAuto() {
+    auto = setInterval(() => {
+        position += speed;
+        track.style.transform = "translateX(" + (-position) + "px)";
+
+        /* boucle infinie */
+        if (position >= track.scrollWidth / 2) {
+            position = 0;
+        }
+
+    }, 20);
+}
+
+/* STOP */
+function stopAuto() {
+    clearInterval(auto);
+}
+
+/* FLÈCHES */
+next.onclick = () => {
+    position += getWidth();
+    track.style.transform = "translateX(" + (-position) + "px)";
+};
+
+prev.onclick = () => {
+    position -= getWidth();
+    if (position < 0) position = 0;
+    track.style.transform = "translateX(" + (-position) + "px)";
+};
+
+/* PAUSE HOVER */
+const slider = document.getElementById("slider");
+slider.addEventListener("mouseenter", stopAuto);
+slider.addEventListener("mouseleave", startAuto);
+
+/* START */
+startAuto();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+/* ===== GLOBAL ===== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+
+    background: url("images/bg-pharma.png") center/cover no-repeat;
+}
+
+
+/* overlay */
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* ===== HEADER ===== */
+header {
+    text-align: center;
+    padding: 30px;
+}
+
+header h1 {
+    font-size: 42px;
+}
+
+header p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ===== SECTION ===== */
+.produits {
+    text-align: center;
+    padding: 20px;
+}
+
+.produits h2 {
+    font-size: 30px;
+}
+
+/* ===== SLIDER ===== */
+.slider {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* CONTAINER */
+.slider-container {
+    overflow: hidden;
+}
+
+/* TRACK */
+.slider-track {
+    display: flex;
+    gap: 60px;
+    transition: transform 0.3s linear;
+}
+
+/* ===== PRODUIT ===== */
+.produit {
+    min-width: 200px;
+    flex-shrink: 0;
+    text-align: center;
+
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+/* IMAGE FIXE */
+.produit img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* TEXTE */
+.produit p {
+    font-weight: bold;
+    margin-top: 100px;
+	background: transparent;
+}
+
+/* ===== FLÈCHES ===== */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    font-size: 240px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+
+    border: none;
+    padding: 100px;
+    border-radius: 80%;
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+.prev { left: 100px; }
+.next { right: 100px; }
+
+.prev:hover, .next:hover {
+    background: black;
+}
+#cartPanel {
+    position: fixed;
+    right: -320px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: white;
+    padding: 10px;
+    transition: 0.3s;
+    z-index: 2000; /* IMPORTANT */
+}
+
+#cartPanel.open {
+    right: 0;
+}
+``
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 20px;
+}
+.fam img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.slider button {
+    font-size: 20px;
+    padding: 10px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.slider button:hover {
+    background: #1a242f;
+}
+
+#bg {
+    position: fixed;
+    top: 0;                /* ? commence en haut */
+    left: 0;
+    width: 100%;
+    height: 100vh;         /* ? toute la page */
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;   /* ? fond plein écran */
+
+    z-index: -1;
+    opacity: 0.35;
+
+}
