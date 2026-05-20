@@ -1,120 +1,130 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>Produits</title>
 
 <style>
-<style>
-<!-- PANIER DETAIL -->
-<div id="cartBox" style="
- position: fixed;
- right: 20px;
- top: 80px;
- width: 300px;
- background: rgba(0,0,0,0.9);
- color: white;
- padding: 15px;
- display: none;
- border-radius: 10px;
- z-index: 999;
-">
- <h3>Panier</h3>
- <button onclick="clearCart()" style="margin-bottom:10px;">
- Vider panier
-</button>
-<button onclick="showCheckout()" style="margin:10px 0;">
- Acheter
-</button>
-<button onclick="sendOrder()">Valider commande</button>
- <ul id="cartItems"></ul>
- <p id="total"></p>
-</div>
 body { margin:0; font-family:Arial; }
 
-/* HEADER */
 header {
-    background:#2c3e50;
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    padding:15px;
+ background:#2c3e50;
+ color:white;
+ display:flex;
+ justify-content:space-between;
+ padding:15px;
 }
 
-/* BACKGROUND */
 #bg {
-    position: fixed;
-    top: 0;                /* ? commence en haut */
-    left: 0;
-    width: 100%;
-    height: 100vh;         /* ? toute la page */
-
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;   /* ? fond plein �cran */
-
-    z-index: -1;
-    opacity: 0.35;
+ position: fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100vh;
+ background-size: cover;
+ z-index:-1;
+ opacity:0.35;
 }
-/* SLIDER */
+
 .slider {
-    display:flex;
-    align-items:center;
-    margin-top:260px;
+ position: relative;
+ display:flex;
+ align-items:center;
+ margin-top:260px;
+}
+.slider button {
+ position: absolute;
+ top: 50%;
+ transform: translateY(-50%);
+ background: rgba(0,0,0,0.6);
+ color: white;
+ border: none;
+ font-size: 24px;
+ padding: 10px 15px;
+ border-radius: 50%;
+ cursor: pointer;
+ z-index: 10;
+}
+
+/* gauche */
+.slider button:first-child {
+ left: 10px;
+}
+
+/* droite */
+.slider button:last-child {
+ right: 10px;
+}
+
+/* effet hover */
+.slider button:hover {
+ background: rgba(0,0,0,0.8);
 }
 
 #familles {
-    display:flex;
-    overflow-x:auto;
-    gap:10px;
+ display: flex;
+ gap: 10px;
+ overflow: hidden; /* ? important */
+ position: relative;
 }
 
 .fam {
-    text-align:center;
-    cursor:pointer;
+ min-width: 140px; /* ? obligatoire */
+ flex-shrink: 0;
 }
 
 .fam img {
-    width:120px;
-    height:120px;
-    border-radius:10px;
+ width:120px;
+ height:120px;
+ border-radius:10px;
 }
 
-/* PRODUCTS */
 #products {
-    display:flex;
-    gap:20px;
-    padding:20px;
-    flex-wrap:wrap;
-    background: transparent;
-
+ display:flex;
+ gap:20px;
+ padding:20px;
+ flex-wrap:wrap;
 }
 
+/* âœ… taille image */
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+/* âœ… zoom carte */
 .card {
-    background:white;
-    padding:10px;
-    border-radius:10px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+    transition: 0.3s;
 }
 
-/* PANIER */
+/* âœ… effet hover (agrandissement article) */
+.card:hover {
+    transform: scale(1.08);
+    z-index: 5;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* âœ… zoom image interne */
+.card:hover img {
+    transform: scale(1.15);
+}
 #cartPanel {
-    position:fixed;
-    right:-320px;
-    top:0;
-    width:300px;
-    height:100%;
-    background:white;
-    padding:10px;
-    transition:0.3s;
-    box-shadow:-3px 0 10px rgba(0,0,0,0.3);
+ position: fixed;
+ right: -320px;
+ top: 0;
+ width: 300px;
+ height: 100%;
+ background: white;
+ transition: 0.3s;
+ box-shadow: -3px 0 10px rgba(0,0,0,0.3);
 }
 
 #cartPanel.open {
-    right:0;
+ right: 0;
 }
-
-.cart-btn { cursor:pointer; }
 </style>
 
 </head>
@@ -124,7 +134,7 @@ header {
 <header>
 <h2>Nos Produits</h2>
 <div class="cart-btn" onclick="toggleCart()">
-    🛒 <span id="count">0</span>
+    ðŸ›’ <span id="count">0</span>
 </div>
 </header>
 
@@ -149,10 +159,10 @@ header {
  <h4>Infos client</h4>
 
  <input id="nom" placeholder="Nom" style="width:100%; margin:5px;"><br>
- <input id="prenom" placeholder="Pr�nom" style="width:100%; margin:5px;"><br>
+ <input id="prenom" placeholder="PrÃ©nom" style="width:100%; margin:5px;"><br>
  <input id="adresse" placeholder="Adresse" style="width:100%; margin:5px;"><br>
 
- <p>Livraison : 7 �</p>
+ <p>Livraison : 2 â‚¬</p>
 
  <button onclick="sendOrder()">Valider</button>
 
@@ -160,7 +170,7 @@ header {
 
 <h3>Panier</h3>
 <ul id="cartItems"></ul>
-<p id="total">Total : 0 €</p>
+<p id="total">Total : 0 â‚¬</p>
 <button onclick="showCheckout()">Acheter</button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
@@ -173,7 +183,7 @@ header {
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 if(typeof emailjs === "undefined"){
- console.log("EmailJS non charg�");
+ console.log("EmailJS non chargÃ©");
 }
 // ? vider panier UNE seule fois au premier lancement
 if (!sessionStorage.getItem("initCartDone")) {
@@ -182,79 +192,125 @@ if (!sessionStorage.getItem("initCartDone")) {
 }
 // ===== DATA =====
 const familles = [
- {nom:"Solaire", img:"https://picsum.photos/800/300?1"},
- {nom:"Visage", img:"https://picsum.photos/800/300?2"},
- {nom:"Corps", img:"https://picsum.photos/800/300?3"},
- {nom:"Huile", img:"https://picsum.photos/800/300?4"},
- {nom:"Sèrom", img:"https://picsum.photos/800/300?5"},
- {nom:"Ortho", img:"https://picsum.photos/800/300?6"}
+ {nom:"Solaire", img:"https://www.maparatunisie.tn/wp-content/uploads/2026/04/la-roche-posay-anthelios-uvmune-400-fluide-anti-taches-spf-50-sans-parfum-50ml.jpg"},
+ {nom:"Visage", img:"https://i.imgur.com/YQnEZTk.jpeg"},
+ {nom:"Corps", img:"https://i.imgur.com/i3mQHvy.jpeg"},
+ {nom:"Huile", img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHjKKIQ3MYbNWu4Da8HhtwnDLiqnMciK6pAXEap4nA7Fjbxl5n60zmZL05f1Z5L4zovhszRD1Fe2cTPNmb4Tp8m2o-q9BHHklfn7IsOWUSo2pfKd-DrUeZEDv2NjZXV6xXASj9dwIk5dIA8qxXBngYFQt92qWY8W7Fbxl2qey80Bu5RzxOCHzhvP5g/s16000/avis-avene-protections-solaires-notino-coups-de-coeur-de-mumu.jpeg"},
+ {nom:"SÃ¨rom", img:"https://i.imgur.com/uL3HKIC.jpeg"},
+ {nom:"Ortho", img:"https://i.imgur.com/IIwhcLd.jpeg"}
 ];
 
 const produits = {
  Solaire:[{nom:"SPF50",prix:20,remise:10,stock:10}],
- Visage:[{nom:"Crème",prix:30,remise:5,stock:5}],
+ Visage:[{nom:"CrÃ¨me",prix:30,remise:5,stock:5}],
  Corps:[{nom:"Lotion",prix:15,remise:0,stock:8}],
  Huile:[{nom:"Huile",prix:20,remise:10,stock:10}],
- Sèrom:[{nom:"Sèrom",prix:35,remise:5,stock:5}],
+ SÃ¨rom:[{nom:"SÃ¨rom",prix:35,remise:5,stock:5}],
  Ortho:[{nom:"Lotion",prix:25,remise:0,stock:8}],
 };
 
 // ===== AFFICHAGE FAMILLES =====
 const famDiv = document.getElementById("familles");
+let position = 0;
+let auto;
 
+// largeur 1 élément
+function getWidth(){
+  const item = document.querySelector(".fam");
+  return item ? item.offsetWidth + 10 : 150;
+}
+
+// AUTO SLIDER (comme index ?)
+function startAuto(){
+  auto = setInterval(() => {
+
+    position += 1;
+
+    famDiv.style.transform = "translateX(-" + position + "px)";
+
+    // boucle infinie
+    if(position >= famDiv.scrollWidth / 2){
+      position = 0;
+    }
+
+  }, 20);
+}
+
+// pause hover
+famDiv.addEventListener("mouseenter", () => clearInterval(auto));
+famDiv.addEventListener("mouseleave", startAuto);
+
+// démarrage
+startAuto();
+
+
+// ===== AFFICHAGE FAMILLES =====
+// ? DUPLIQUER pour effet infini
 familles.forEach(f => {
+ let div = document.createElement("div");
+ div.className = "fam";
 
-    let div = document.createElement("div");
-    div.className = "fam";
+ let img = document.createElement("img");
+ img.src = f.img;
 
-    let img = document.createElement("img");
-    img.src = f.img;
+ let p = document.createElement("p");
+ p.innerText = f.nom;
 
-    let p = document.createElement("p");
-    p.innerText = f.nom;
+ div.appendChild(img);
+ div.appendChild(p);
 
-    div.appendChild(img);
-    div.appendChild(p);
+ div.onclick = () => loadFam(f.nom, f.img);
 
-    // ? click fonctionne
-    div.onclick = () => loadFam(f.nom, f.img);
-
-    famDiv.appendChild(div);
+ famDiv.appendChild(div);
 });
-``
 
 // ===== LOAD FAMILLE =====
 window.loadFam = function(name, img){
+ document.getElementById("bg").src = img; 
+ let container = document.getElementById("products"); 
+ container.innerHTML = ""; 
 
-    // ? METTRE L'IMAGE
-    document.getElementById("bg").src = img;
+ produits[name].forEach(p =>{
+  let final = p.prix - (p.prix * p.remise / 100); 
 
-    let container = document.getElementById("products");
-    container.innerHTML = "";
+  container.innerHTML += ` 
+  <div class="card">
 
-    produits[name].forEach(p =>{
-        let final = p.prix - (p.prix * p.remise / 100);
+  <img src="${img}" alt="produit">
 
-        container.innerHTML += `
-        <div class="card">
-            <h3>${p.nom}</h3>
-            Prix: ${p.prix} €<br>
-            Remise: ${p.remise}%<br>
-            Final: ${final.toFixed(2)} €<br>
-            Stock: ${p.stock}<br>
-            <button onclick="addCart('${p.nom}', ${final})">Ajouter</button>
-        </div>`;
-    });
+  <h3>${p.nom}</h3> 
+  Prix: ${p.prix} â‚¬<br> 
+  Remise: ${p.remise}%<br> 
+  Final: ${final.toFixed(2)} â‚¬<br> 
+  Stock: ${p.stock}<br> 
+
+  <button onclick="addCart('${p.nom}', ${final})">Ajouter</button> 
+
+  </div>`;
+ }); 
 }
 
 
-
 // ===== SLIDER =====
-window.scrollLeft = () => famDiv.scrollBy({left:-200,behavior:"smooth"});
-window.scrollRight = () => famDiv.scrollBy({left:200,behavior:"smooth"});
+// contrôle du slider
+window.scrollLeft = () => {
+  position -= 150;
+  if (position < 0) position = 0;
+  famDiv.style.transform = "translateX(-" + position + "px)";
+};
 
+window.scrollRight = () => {
+  const max = famDiv.scrollWidth - famDiv.clientWidth;
+
+  position += 150;
+  if (position > max) position = max;
+
+  famDiv.style.transform = "translateX(-" + position + "px)";
+};
 // ===== PANIER =====
-function getCart(){ return JSON.parse(localStorage.getItem("cart")) || []; }
+function getCart(){
+  return JSON.parse(localStorage.getItem("cart")) || []; 
+}
 function saveCart(c){ localStorage.setItem("cart", JSON.stringify(c)); }
 
 // ? FIX ADD CART
@@ -295,12 +351,12 @@ function updateCart(){
             <button onclick="qty(${i},-1)">-</button>
             ${it.qte}
             <button onclick="qty(${i},1)">+</button>
-            = ${sub.toFixed(2)} €
+            = ${sub.toFixed(2)} â‚¬
             <button onclick="del(${i})">X</button>
         </li>`;
     });
 
-    document.getElementById("total").innerText = "Total : " + total.toFixed(2) + " €";
+    document.getElementById("total").innerText = "Total : " + total.toFixed(2) + " â‚¬";
     document.getElementById("count").innerText = count;
 }
 
@@ -330,12 +386,38 @@ window.toggleCart = function(){
 window.showCheckout = function(){
  document.getElementById("checkoutForm").style.display = "block";
 }
-/*window.sendOrder = function(){
-alert("fonction appel�e");
- let cart = JSON.parse(localStorage.getItem("cart")) || [];
+function generateOrderNumber() {
+    let today = new Date();
 
- if(cart.length === 0){
-  alert("Panier vide !");
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yy = String(today.getFullYear()).slice(-2);
+
+    let datePart = dd + mm + yy; // ex: 140526
+
+    // rÃ©cupÃ©rer dernier compteur
+    let lastDate = localStorage.getItem("orderDate");
+    let counter = localStorage.getItem("orderCount");
+
+    if (lastDate === datePart) {
+        counter = parseInt(counter || "0") + 1;
+    } else {
+        counter = 1;
+    }
+
+    // sauvegarde
+    localStorage.setItem("orderDate", datePart);
+    localStorage.setItem("orderCount", counter);
+
+    let countStr = String(counter).padStart(3, '0');
+
+    return datePart + "-" + countStr; // ex: 140526-001
+}
+
+window.sendOrder = function(){
+
+ if(typeof emailjs === "undefined"){
+  alert("EmailJS non chargÃ© ?");
   return;
  }
 
@@ -348,67 +430,36 @@ alert("fonction appel�e");
   return;
  }
 
+ let cart = getCart();
+ let orderId = generateOrderNumber(); // âœ… NEW
+
  let total = 0;
- let message = "Commande :\n\n";
+ let message = "Commande NÂ°: " + orderId + "\n\n";
 
  cart.forEach(it=>{
   let sub = it.prix * it.qte;
   total += sub;
-  message += it.nom + " x" + it.qte + " = " + sub + " �\n";
+  message += it.nom + " x" + it.qte + " = " + sub + " â‚¬\n";
  });
 
  let livraison = 7;
  total += livraison;
 
- message += "\nLivraison: " + livraison + " �";
- message += "\nTOTAL: " + total + " �\n\n";
+ message += "\nLivraison: " + livraison + " â‚¬";
+ message += "\nTOTAL: " + total + " â‚¬\n\n";
 
  message += "Client:\n" + nom + " " + prenom + "\n" + adresse;
 
- // ? ENVOI EMAILJS
-  alert("fonction appel�e");
  emailjs.send("service_mntu679", "template_ck3fxdg", {
-  message: message
- })
- .then(function() {
-
-  alert("Commande envoy�e ?");
-
-  // ? vider panier
-  localStorage.setItem("cart", JSON.stringify([]));
-
-  // ? MAJ affichage
-  updateCart();
-
-  // ? REDIRECTION PAGE PRINCIPALE
-  window.location.href = "index.html"; 
-  // ?? remplace par ta vraie page principale
-
- })
- .catch(function(error) {
-  alert("Erreur envoi ?");
-  console.log(error);
- });
-}*/
-window.sendOrder = function(){
-
- alert("fonction appel�e");
-
- if(typeof emailjs === "undefined"){
-  alert("EmailJS non charg� ?");
-  return;
- }
-
- emailjs.send("service_mntu679", "template_ck3fxdg", {
-  message: "TEST EMAILJS"
+    message: message,
+    order_id: orderId // âœ… tu peux aussi lâ€™utiliser dans EmailJS
  })
  .then(function(response) {
-  alert("? EMAIL ENVOY� !");
-  console.log(response);
+  alert("âœ… EMAIL ENVOYE !");
  })
  .catch(function(error) {
-  alert("? ERREUR EMAIL");
-  console.log("ERREUR:", error);
+  alert("âŒ ERREUR EMAIL");
+  console.log(error);
  });
 
 }
