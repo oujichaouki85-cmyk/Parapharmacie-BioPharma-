@@ -86,7 +86,7 @@ header {
  flex-wrap:wrap;
 }
 
-/* âœ… taille image */
+/* ✅ taille image */
 .card img {
     width: 100%;
     height: 150px;
@@ -95,19 +95,19 @@ header {
     transition: 0.3s;
 }
 
-/* âœ… zoom carte */
+/* ✅ zoom carte */
 .card {
     transition: 0.3s;
 }
 
-/* âœ… effet hover (agrandissement article) */
+/* ✅ effet hover (agrandissement article) */
 .card:hover {
     transform: scale(1.08);
     z-index: 5;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* âœ… zoom image interne */
+/* ✅ zoom image interne */
 .card:hover img {
     transform: scale(1.15);
 }
@@ -134,7 +134,7 @@ header {
 <header>
 <h2>Nos Produits</h2>
 <div class="cart-btn" onclick="toggleCart()">
-    ðŸ›’ <span id="count">0</span>
+    🛒 <span id="count">0</span>
 </div>
 </header>
 
@@ -159,10 +159,10 @@ header {
  <h4>Infos client</h4>
 
  <input id="nom" placeholder="Nom" style="width:100%; margin:5px;"><br>
- <input id="prenom" placeholder="PrÃ©nom" style="width:100%; margin:5px;"><br>
+ <input id="prenom" placeholder="Prénom" style="width:100%; margin:5px;"><br>
  <input id="adresse" placeholder="Adresse" style="width:100%; margin:5px;"><br>
 
- <p>Livraison : 2 â‚¬</p>
+ <p>Livraison : 2 €</p>
 
  <button onclick="sendOrder()">Valider</button>
 
@@ -170,7 +170,7 @@ header {
 
 <h3>Panier</h3>
 <ul id="cartItems"></ul>
-<p id="total">Total : 0 â‚¬</p>
+<p id="total">Total : 0 €</p>
 <button onclick="showCheckout()">Acheter</button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
@@ -183,7 +183,7 @@ header {
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 if(typeof emailjs === "undefined"){
- console.log("EmailJS non chargÃ©");
+ console.log("EmailJS non chargé");
 }
 // ? vider panier UNE seule fois au premier lancement
 if (!sessionStorage.getItem("initCartDone")) {
@@ -196,16 +196,16 @@ const familles = [
  {nom:"Visage", img:"https://i.imgur.com/YQnEZTk.jpeg"},
  {nom:"Corps", img:"https://i.imgur.com/i3mQHvy.jpeg"},
  {nom:"Huile", img:"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHjKKIQ3MYbNWu4Da8HhtwnDLiqnMciK6pAXEap4nA7Fjbxl5n60zmZL05f1Z5L4zovhszRD1Fe2cTPNmb4Tp8m2o-q9BHHklfn7IsOWUSo2pfKd-DrUeZEDv2NjZXV6xXASj9dwIk5dIA8qxXBngYFQt92qWY8W7Fbxl2qey80Bu5RzxOCHzhvP5g/s16000/avis-avene-protections-solaires-notino-coups-de-coeur-de-mumu.jpeg"},
- {nom:"SÃ¨rom", img:"https://i.imgur.com/uL3HKIC.jpeg"},
+ {nom:"Sèrom", img:"https://i.imgur.com/uL3HKIC.jpeg"},
  {nom:"Ortho", img:"https://i.imgur.com/IIwhcLd.jpeg"}
 ];
 
 const produits = {
  Solaire:[{nom:"SPF50",prix:20,remise:10,stock:10}],
- Visage:[{nom:"CrÃ¨me",prix:30,remise:5,stock:5}],
+ Visage:[{nom:"Crème",prix:30,remise:5,stock:5}],
  Corps:[{nom:"Lotion",prix:15,remise:0,stock:8}],
  Huile:[{nom:"Huile",prix:20,remise:10,stock:10}],
- SÃ¨rom:[{nom:"SÃ¨rom",prix:35,remise:5,stock:5}],
+ Sèrom:[{nom:"Sèrom",prix:35,remise:5,stock:5}],
  Ortho:[{nom:"Lotion",prix:25,remise:0,stock:8}],
 };
 
@@ -214,7 +214,7 @@ const famDiv = document.getElementById("familles");
 let position = 0;
 let auto;
 
-// largeur 1 élément
+// largeur 1 �l�ment
 function getWidth(){
   const item = document.querySelector(".fam");
   return item ? item.offsetWidth + 10 : 150;
@@ -240,7 +240,7 @@ function startAuto(){
 famDiv.addEventListener("mouseenter", () => clearInterval(auto));
 famDiv.addEventListener("mouseleave", startAuto);
 
-// démarrage
+// d�marrage
 startAuto();
 
 
@@ -279,9 +279,9 @@ window.loadFam = function(name, img){
   <img src="${img}" alt="produit">
 
   <h3>${p.nom}</h3> 
-  Prix: ${p.prix} â‚¬<br> 
+  Prix: ${p.prix} €<br> 
   Remise: ${p.remise}%<br> 
-  Final: ${final.toFixed(2)} â‚¬<br> 
+  Final: ${final.toFixed(2)} €<br> 
   Stock: ${p.stock}<br> 
 
   <button onclick="addCart('${p.nom}', ${final})">Ajouter</button> 
@@ -292,7 +292,7 @@ window.loadFam = function(name, img){
 
 
 // ===== SLIDER =====
-// contrôle du slider
+// contr�le du slider
 window.scrollLeft = () => {
   position -= 150;
   if (position < 0) position = 0;
@@ -351,12 +351,12 @@ function updateCart(){
             <button onclick="qty(${i},-1)">-</button>
             ${it.qte}
             <button onclick="qty(${i},1)">+</button>
-            = ${sub.toFixed(2)} â‚¬
+            = ${sub.toFixed(2)} €
             <button onclick="del(${i})">X</button>
         </li>`;
     });
 
-    document.getElementById("total").innerText = "Total : " + total.toFixed(2) + " â‚¬";
+    document.getElementById("total").innerText = "Total : " + total.toFixed(2) + " €";
     document.getElementById("count").innerText = count;
 }
 
@@ -395,7 +395,7 @@ function generateOrderNumber() {
 
     let datePart = dd + mm + yy; // ex: 140526
 
-    // rÃ©cupÃ©rer dernier compteur
+    // récupérer dernier compteur
     let lastDate = localStorage.getItem("orderDate");
     let counter = localStorage.getItem("orderCount");
 
@@ -417,7 +417,7 @@ function generateOrderNumber() {
 window.sendOrder = function(){
 
  if(typeof emailjs === "undefined"){
-  alert("EmailJS non chargÃ© ?");
+  alert("EmailJS non chargé ?");
   return;
  }
 
@@ -431,34 +431,34 @@ window.sendOrder = function(){
  }
 
  let cart = getCart();
- let orderId = generateOrderNumber(); // âœ… NEW
+ let orderId = generateOrderNumber(); // ✅ NEW
 
  let total = 0;
- let message = "Commande NÂ°: " + orderId + "\n\n";
+ let message = "Commande N°: " + orderId + "\n\n";
 
  cart.forEach(it=>{
   let sub = it.prix * it.qte;
   total += sub;
-  message += it.nom + " x" + it.qte + " = " + sub + " â‚¬\n";
+  message += it.nom + " x" + it.qte + " = " + sub + " €\n";
  });
 
  let livraison = 7;
  total += livraison;
 
- message += "\nLivraison: " + livraison + " â‚¬";
- message += "\nTOTAL: " + total + " â‚¬\n\n";
+ message += "\nLivraison: " + livraison + " €";
+ message += "\nTOTAL: " + total + " €\n\n";
 
  message += "Client:\n" + nom + " " + prenom + "\n" + adresse;
 
  emailjs.send("service_mntu679", "template_ck3fxdg", {
     message: message,
-    order_id: orderId // âœ… tu peux aussi lâ€™utiliser dans EmailJS
+    order_id: orderId // ✅ tu peux aussi l’utiliser dans EmailJS
  })
  .then(function(response) {
-  alert("âœ… EMAIL ENVOYE !");
+  alert("✅ EMAIL ENVOYE !");
  })
  .catch(function(error) {
-  alert("âŒ ERREUR EMAIL");
+  alert("❌ ERREUR EMAIL");
   console.log(error);
  });
 
