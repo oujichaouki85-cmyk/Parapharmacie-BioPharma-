@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
     color: white;
 
-    background: url("images/bg-pharma.png") center/cover no-repeat;
+    background: url("images/bg-pharma11.png") center/cover no-repeat;
 }
 
 
@@ -91,7 +91,7 @@ header p {
 	background: transparent;
 }
 
-/* ===== FLÈCHES ===== */
+/* ===== FLÃˆCHES ===== */
 .prev, .next {
     position: absolute;
     top: 50%;
@@ -165,7 +165,7 @@ footer {
 
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;   /* ? fond plein écran */
+    background-size: cover;   /* ? fond plein Ã©cran */
 
     z-index: -1;
     opacity: 0.35;
